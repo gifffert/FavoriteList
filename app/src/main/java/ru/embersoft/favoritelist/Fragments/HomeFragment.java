@@ -1,23 +1,19 @@
-package ru.embersoft.favoritelist.ui.home;
+package ru.embersoft.favoritelist.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import ru.embersoft.favoritelist.CoffeeAdapter;
-import ru.embersoft.favoritelist.CoffeeItem;
+import ru.embersoft.favoritelist.Adapters.CoffeeAdapter;
+import ru.embersoft.favoritelist.Helpers.CoffeeItem;
 import ru.embersoft.favoritelist.R;
 
 public class HomeFragment extends Fragment {

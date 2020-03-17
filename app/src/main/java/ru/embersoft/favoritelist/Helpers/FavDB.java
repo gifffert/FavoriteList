@@ -1,4 +1,4 @@
-package ru.embersoft.favoritelist;
+package ru.embersoft.favoritelist.Helpers;
 
 import android.content.ContentValues;
 import android.content.Context;

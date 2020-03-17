@@ -1,4 +1,4 @@
-package ru.embersoft.favoritelist.ui.dashboard;
+package ru.embersoft.favoritelist.Fragments;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,22 +6,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.embersoft.favoritelist.FavAdapter;
-import ru.embersoft.favoritelist.FavDB;
-import ru.embersoft.favoritelist.FavItem;
+import ru.embersoft.favoritelist.Adapters.FavAdapter;
+import ru.embersoft.favoritelist.Helpers.FavDB;
+import ru.embersoft.favoritelist.Helpers.FavItem;
 import ru.embersoft.favoritelist.R;
 
 public class DashboardFragment extends Fragment {
@@ -39,6 +36,10 @@ public class DashboardFragment extends Fragment {
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        // add item touch helper
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView); // set swipe to recyclerview
 
         loadData();
 
@@ -70,5 +71,24 @@ public class DashboardFragment extends Fragment {
         recyclerView.setAdapter(favAdapter);
 
     }
+
+    // remove item after swipe
+    private ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            final int position = viewHolder.getAdapterPosition(); // get position which is swipe
+            final FavItem favItem = favItemList.get(position);
+            if (direction == ItemTouchHelper.LEFT) { //if swipe left
+                favAdapter.notifyItemRemoved(position); // item removed from recyclerview
+                favItemList.remove(position); //then remove item
+                favDB.remove_fav(favItem.getKey_id()); // remove item from database
+            }
+        }
+    };
 
 }

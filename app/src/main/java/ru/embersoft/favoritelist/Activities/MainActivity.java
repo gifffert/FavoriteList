@@ -1,4 +1,4 @@
-package ru.embersoft.favoritelist;
+package ru.embersoft.favoritelist.Activities;
 
 import android.os.Bundle;
 
@@ -9,6 +9,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import ru.embersoft.favoritelist.R;
 
 public class MainActivity extends AppCompatActivity {
 

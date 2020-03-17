@@ -1,4 +1,4 @@
-package ru.embersoft.favoritelist;
+package ru.embersoft.favoritelist.Helpers;
 
 public class FavItem {
 
